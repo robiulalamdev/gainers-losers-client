@@ -37,12 +37,12 @@ const Home = () => {
 
   const refetch = async () => {
     setIsLoading(true);
-    fetch(`${sever_url}/upload/gain-looses`)
+    fetch(`${sever_url}/gain-losses`)
       .then((res) => res.json())
       .then((data) => {
-        if (data?.Data?.length > 0) {
-          setData(data?.Data);
-          setStoredData(data?.Data);
+        if (data?.data?.data?.length > 0) {
+          setData(data?.data?.data);
+          setStoredData(data?.data?.data);
         }
       })
       .finally(() => setIsLoading(false));
