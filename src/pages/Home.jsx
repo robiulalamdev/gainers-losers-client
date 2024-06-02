@@ -82,7 +82,7 @@ const Home = () => {
 
   return (
     <div className="home py-14">
-      <div className="container px-6">
+      <div className="max-w-[1620px] mx-auto px-6">
         <div className="country pb-10">
           <h2 className="text-2xl font-semibold capitalize text-[#191E29] pb-6">
             Country
