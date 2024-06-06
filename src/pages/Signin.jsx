@@ -1,6 +1,38 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import navBrand from "../assets/nav-brand.png";
+import { useAuth } from "../contexts/AuthContextComp";
+import { BASE_URL } from "../config/config";
 
 function Signin() {
+  const navigate = useNavigate();
+  const { userSignIn } = useAuth();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const newData = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    const res = await fetch(`${BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+    });
+    const result = await res.json();
+
+    if (result?.user) {
+      userSignIn(result);
+      navigate("/");
+      toast.success("Login successfull.");
+    } else {
+      toast.error("Login failed.");
+    }
+  };
+
   return (
     <div>
       <div className="bg-gray-50 font-[sans-serif] text-[#333]">
@@ -16,7 +48,7 @@ function Signin() {
             <h2 className="text-center text-3xl font-extrabold">
               Log in to your account
             </h2>
-            <form className="mt-10 space-y-4">
+            <form onSubmit={submitHandler} className="mt-10 space-y-4">
               <div>
                 <input
                   name="email"
@@ -58,7 +90,7 @@ function Signin() {
               </div>
               <div className="!mt-10">
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full py-2.5 px-4 text-sm rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                 >
                   Log in

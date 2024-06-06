@@ -5,6 +5,9 @@ export default {
     extend: {
       container: {
         center: "true",
+        screens: {
+          default: "1840px",
+        },
       },
       boxShadow: {
         customShadow: "0px 10px 25px 2px rgba(0, 0, 0, 0.08)",
